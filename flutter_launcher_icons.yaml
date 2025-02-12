@@ -1,0 +1,9 @@
+flutter_launcher_icons:
+  ios: true
+  android: true
+  image_path: "assets/images/light_laucher_Icon.png"
+  min_sdk_android: 21 
+  remove_alpha_ios: true
+  adaptive_icon_background: "#e65728"
+  adaptive_icon_foreground: "assets/images/light_rounded_launcher_Icon.png"
+  # dart run flutter_launcher_icons -f flutter_launcher_icons.yaml

@@ -1,0 +1,58 @@
+name: food_order
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  
+  cupertino_icons: ^1.0.8
+  flutter_screenutil:
+  device_preview: ^1.2.0
+  flutter_native_splash: 
+  dropdown_button2: ^2.3.9
+
+dev_dependencies:
+  flutter_launcher_icons:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^4.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - lib/core/utils/vegetables.json
+   
+
+  fonts:
+    - family: "AbhayaLibreExtraBold"
+      fonts:
+        - asset: assets/fonts/AbhayaLibre-ExtraBold.ttf
+          weight: 800
+
+    - family: "PoppinsRegular"
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+
+    - family: "QuestrialRegular"
+      fonts:
+        - asset: assets/fonts/Questrial-Regular.ttf
+          weight: 400
+    
