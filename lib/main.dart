@@ -6,5 +6,5 @@ import 'package:food_order/food_app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
-  runApp(DevicePreview(enabled: true, builder: (context) => const Foodapp()));
+  runApp(DevicePreview(enabled: false, builder: (context) => const Foodapp()));
 }

@@ -7,6 +7,7 @@ class AppColor {
   static const Color lightBackground = Color(0xffFBFBFB);
   static const Color neutralGray1 = Color(0xff959595);
   static const Color neutralGray2 = Color(0xff474747);
+  static const neutralGray3 = Color(0xffDEDEDE);
   static const Color softBackground = Color(0xffEAECF0);
   static const Color subtleGray = Color(0xffDADADA);
   static const Color neutralWhite = Color(0xffFFFFFF);

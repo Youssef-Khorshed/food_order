@@ -54,8 +54,8 @@ class CalorieForm extends StatelessWidget {
               if (weightValue == null) {
                 return 'Please enter a valid number';
               }
-              if (weightValue <= 0 || weightValue > 300) {
-                return 'Please enter a valid weight (0-300 kg)';
+              if (weightValue <= 45 || weightValue > 300) {
+                return 'Please enter a valid weight (45-300 kg)';
               }
               return null;
             },
@@ -74,8 +74,8 @@ class CalorieForm extends StatelessWidget {
               if (heightValue == null) {
                 return 'Please enter a valid number';
               }
-              if (heightValue <= 0 || heightValue > 300) {
-                return 'Please enter a valid height (0-300 cm)';
+              if (heightValue <= 150 || heightValue > 300) {
+                return 'Please enter a valid height (150-300 cm)';
               }
               return null;
             },
@@ -94,8 +94,8 @@ class CalorieForm extends StatelessWidget {
               if (ageValue == null) {
                 return 'Please enter a valid number';
               }
-              if (ageValue <= 0 || ageValue > 120) {
-                return 'Please enter a valid age (0-120 years)';
+              if (ageValue <= 1 || ageValue > 100) {
+                return 'Please enter a valid age (1-100 years)';
               }
               return null;
             },

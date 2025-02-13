@@ -50,7 +50,7 @@ class CustomAppBottom extends StatelessWidget {
             child: withIcon
                 ? Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                        EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -74,13 +74,10 @@ class CustomAppBottom extends StatelessWidget {
                       ],
                     ),
                   )
-                : Padding(
-                    padding: EdgeInsets.only(left: 0.0.w, right: 3.0.w),
-                    child: Center(
-                      child: Text(
-                        title,
-                        style: txtstyle ?? AppStyle.style14w500neutralGray2,
-                      ),
+                : Center(
+                    child: Text(
+                      title,
+                      style: txtstyle ?? AppStyle.style14w500neutralGray2,
                     ),
                   ),
           ),

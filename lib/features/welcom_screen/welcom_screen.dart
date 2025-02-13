@@ -26,13 +26,15 @@ class Welcomscreen extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 52.h,
-            left: width / 9,
-            right: width / 9,
-            child: Text(
-              'Balanced Meal',
-              style: AppStyle.style48w800WhiteNeutralWhite,
-            )),
+          top: 80.h,
+          left: 0,
+          right: 0,
+          child: Text(
+            textAlign: TextAlign.center,
+            'Balanced Meal',
+            style: AppStyle.style48w800WhiteNeutralWhite,
+          ),
+        ),
         Positioned(
             top: height / 1.65,
             left: 24,
@@ -46,12 +48,11 @@ class Welcomscreen extends StatelessWidget {
             top: height / 1.25,
             left: 24,
             right: 24,
-            //bottom: 43,
             child: CustomAppBottom(
                 onTap: () => context.pushNamed(Routes.userDetails),
                 title: 'Order Food',
                 btnWidth: 327.w,
-                btnheight: 60.h,
+                btnheight: 69.h,
                 txtstyle: AppStyle.style16w500NeutralWhite,
                 btnColor: AppColor.vibrantOrange,
                 withIcon: false))

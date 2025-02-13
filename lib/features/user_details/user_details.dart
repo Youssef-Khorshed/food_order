@@ -111,7 +111,7 @@ class _UserDetailsState extends State<UserDetails> {
                   CustomAppBottom(
                     title: "Next",
                     btnWidth: 327.w,
-                    btnheight: 60.h,
+                    btnheight: 69.h,
                     txtstyle: isFormValid
                         ? AppStyle.style16w400NeutralWhite
                         : AppStyle.style16w500NeutralGray2,

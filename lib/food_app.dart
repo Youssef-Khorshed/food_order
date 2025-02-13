@@ -16,8 +16,8 @@ class Foodapp extends StatelessWidget {
           designSize: constraints.maxWidth >= 600
               ? const Size(200, 912)
               : constraints.maxWidth < 390
-                  ? const Size(490, 912)
-                  : const Size(390, 1110),
+                  ? const Size(490, 1330)
+                  : const Size(375, 1330),
           ensureScreenSize: true,
           minTextAdapt: true,
           builder: (context, child) => MaterialApp(

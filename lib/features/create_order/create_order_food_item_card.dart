@@ -1,10 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:food_order/core/style/styles.dart';
 import 'package:food_order/core/theme/colors.dart';
-import 'package:food_order/core/utils/custom_app_button.dart';
 import 'package:food_order/features/create_order/food_item_model.dart';
 
 class CreateOrderFoodItemCard extends StatefulWidget {
@@ -25,7 +23,7 @@ class CreateOrderFoodItemCard extends StatefulWidget {
 
 class _CreateOrderFoodItemCardState extends State<CreateOrderFoodItemCard> {
   bool chage = false;
-  int count = 1;
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -41,17 +39,22 @@ class _CreateOrderFoodItemCardState extends State<CreateOrderFoodItemCard> {
               widget.item.imageUrl,
               width: 163.w,
               height: 108.h,
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
             ),
             Row(
               children: [
-                Text(widget.item.foodName,
-                    style: AppStyle.style16w400PrimaryText),
+                SizedBox(
+                  width: 100.w,
+                  child: Text(widget.item.foodName,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: AppStyle.style16w400PrimaryText),
+                ),
                 const Spacer(),
                 Text(
-                  widget.item.calories.toString(),
-                  style: AppStyle.style14w500neutralGray2,
-                )
+                  "${widget.item.calories} Cal",
+                  style: AppStyle.style14w400NeutralGray1,
+                ),
               ],
             ),
             SizedBox(
@@ -67,23 +70,21 @@ class _CreateOrderFoodItemCardState extends State<CreateOrderFoodItemCard> {
                 chage
                     ? Row(
                         children: [
-                          CustomAppBottom(
-                            onTap: () {
-                              setState(() {
-                                if (count > 1) {
-                                  widget.onremove(count);
+                          CircleAvatar(
+                            backgroundColor: AppColor.vibrantOrange,
+                            radius: 18.r,
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                if (count > 0) {
                                   count--;
+                                  widget.onremove(count);
                                 }
-                              });
-                            },
-                            btnWidth: 30.w,
-                            btnheight: 30.h,
-                            title: "-",
-                            txtstyle: AppStyle.style16w400NeutralWhite,
-                            withIcon: false,
-                            btnColor: count > 1
-                                ? AppColor.vibrantOrange
-                                : AppColor.neutralGray2,
+                              }),
+                              child: const Icon(
+                                color: AppColor.neutralWhite,
+                                Icons.remove,
+                              ),
+                            ),
                           ),
                           SizedBox(width: 7.w),
                           Text(
@@ -91,33 +92,45 @@ class _CreateOrderFoodItemCardState extends State<CreateOrderFoodItemCard> {
                             style: AppStyle.style16w400PrimaryText,
                           ),
                           SizedBox(width: 7.w),
-                          CustomAppBottom(
-                            onTap: () {
-                              if (count < 50) {
-                                widget.onadd(count);
-                                count++;
-                              }
-                            },
-                            btnWidth: 35.w,
-                            btnheight: 30.h,
-                            title: "+",
-                            txtstyle: AppStyle.style16w400NeutralWhite,
-                            withIcon: false,
-                            btnColor: AppColor.vibrantOrange,
+                          CircleAvatar(
+                            backgroundColor: AppColor.vibrantOrange,
+                            radius: 18.r,
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                if (count < 50) {
+                                  count++;
+                                  widget.onadd(count);
+                                }
+                              }),
+                              child: const Icon(
+                                color: AppColor.neutralWhite,
+                                Icons.add,
+                              ),
+                            ),
                           ),
                         ],
                         //ll
                       )
-                    : CustomAppBottom(
+                    : GestureDetector(
                         onTap: () => setState(() {
                           chage = !chage;
                         }),
-                        btnWidth: 65.w,
-                        btnheight: 32.h,
-                        title: "Add",
-                        txtstyle: AppStyle.style16w400NeutralWhite,
-                        withIcon: false,
-                        btnColor: AppColor.vibrantOrange,
+                        child: Container(
+                          height: 45.h,
+                          width: 60.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 5.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.r),
+                            color: AppColor.vibrantOrange,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Add",
+                              style: AppStyle.style16w400NeutralWhite,
+                            ),
+                          ),
+                        ),
                       )
               ],
             )

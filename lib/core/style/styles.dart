@@ -47,7 +47,14 @@ class AppStyle {
 
   static TextStyle style16w400NeutralGray1 = TextStyle(
       fontSize: 16.sp,
-      fontFamily: "QuestrialRegular",
+      fontFamily: "PoppinsRegular",
+      fontWeight: FontWeight.w400,
+      color: AppColor.neutralGray1,
+      height: 0);
+
+  static TextStyle style14w400NeutralGray1 = TextStyle(
+      fontSize: 14.sp,
+      fontFamily: "PoppinsRegular",
       fontWeight: FontWeight.w400,
       color: AppColor.neutralGray1,
       height: 0);
@@ -68,6 +75,12 @@ class AppStyle {
 
   static TextStyle style16w400NeutralWhite = TextStyle(
       fontSize: 16.sp,
+      fontFamily: "PoppinsRegular",
+      fontWeight: FontWeight.w400,
+      color: AppColor.neutralWhite,
+      height: 0);
+  static TextStyle style18w400NeutralWhite = TextStyle(
+      fontSize: 18.sp,
       fontFamily: "PoppinsRegular",
       fontWeight: FontWeight.w400,
       color: AppColor.neutralWhite,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_order/core/Extension/navigation.dart';
@@ -35,6 +34,8 @@ class _CreateOrderState extends State<CreateOrder> {
   }
 
   fetch() async {
+    items.clear();
+    totalVegetables = totalMeat = totalCarb = 0;
     List<dynamic> vegetablesjson =
         jsonDecode(await FoodItem.readJsonfromFile(name: 'vegetables'));
     List<dynamic> carbjson =
@@ -67,14 +68,27 @@ class _CreateOrderState extends State<CreateOrder> {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Text(
-              'Vegetables',
-              style: AppStyle.style20w500primaryText,
+              child: Container(
+            height: 5,
+          )),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Text(
+                'Vegetables',
+                style: AppStyle.style20w500primaryText,
+              ),
             ),
           ),
+
           SliverToBoxAdapter(
-              child: SizedBox(
-            height: 196.h,
+              child: Container(
+            height: 5,
+          )),
+          SliverToBoxAdapter(
+              child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            height: 215.h,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: vegetavleFoodItems.length,
@@ -83,28 +97,42 @@ class _CreateOrderState extends State<CreateOrder> {
                     item: vegetavleFoodItems[index],
                     onadd: (value) => setState(() {
                       items[vegetavleFoodItems[index]] = value;
-                      totalVegetables += value;
+                      totalVegetables += (value * 12);
                     }),
                     onremove: (value) => setState(() {
                       items[vegetavleFoodItems[index]] = value;
-                      totalVegetables -= value;
+                      totalVegetables -= (value * 12);
+                      if (value == 0) {
+                        totalVegetables -= (1 * 12);
 
-                      if (totalVegetables < 0) {
-                        totalVegetables = 0;
+                        items.remove(vegetavleFoodItems[index]);
                       }
                     }),
                   );
                 }),
           )),
           SliverToBoxAdapter(
-            child: Text(
-              'Meats',
-              style: AppStyle.style20w500primaryText,
+              child: Container(
+            height: 5,
+          )),
+          //
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Text(
+                'Meats',
+                style: AppStyle.style20w500primaryText,
+              ),
             ),
           ),
           SliverToBoxAdapter(
-              child: SizedBox(
-            height: 196.h,
+              child: Container(
+            height: 5,
+          )),
+          SliverToBoxAdapter(
+              child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            height: 215.h,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: meatFoodItems.length,
@@ -112,14 +140,16 @@ class _CreateOrderState extends State<CreateOrder> {
                   return CreateOrderFoodItemCard(
                     onadd: (value) => setState(() {
                       items[meatFoodItems[index]] = value;
-                      totalMeat += value;
+                      totalMeat += (value * 12);
                     }),
                     onremove: (value) => setState(() {
                       items[meatFoodItems[index]] = value;
-                      totalMeat -= value;
+                      totalMeat -= (value * 12);
 
-                      if (totalMeat < 0) {
-                        totalMeat = 0;
+                      if (value == 0) {
+                        totalMeat -= (1 * 12);
+
+                        items.remove(meatFoodItems[index]);
                       }
                     }),
                     item: meatFoodItems[index],
@@ -127,14 +157,26 @@ class _CreateOrderState extends State<CreateOrder> {
                 }),
           )),
           SliverToBoxAdapter(
-            child: Text(
-              'Carbs',
-              style: AppStyle.style20w500primaryText,
+              child: Container(
+            height: 5,
+          )),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Text(
+                'Carbs',
+                style: AppStyle.style20w500primaryText,
+              ),
             ),
           ),
           SliverToBoxAdapter(
-              child: SizedBox(
-            height: 196.h,
+              child: Container(
+            height: 5,
+          )),
+          SliverToBoxAdapter(
+              child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            height: 215.h,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: carbFoodItems.length,
@@ -143,24 +185,32 @@ class _CreateOrderState extends State<CreateOrder> {
                     item: carbFoodItems[index],
                     onadd: (value) => setState(() {
                       items[carbFoodItems[index]] = value;
-                      totalCarb += value;
+                      totalCarb += (value * 12);
                     }),
                     onremove: (value) => setState(() {
                       items[carbFoodItems[index]] = value;
-                      totalCarb -= value;
+                      debugPrint(value.toString());
+                      totalCarb -= (value * 12);
+                      if (value == 0) {
+                        totalCarb -= (1 * 12);
 
-                      if (totalCarb < 0) {
-                        totalCarb = 0;
+                        items.remove(carbFoodItems[index]);
                       }
                     }),
                   );
                 }),
           )),
+          SliverToBoxAdapter(
+              child: Container(
+            height: 20.h,
+          )),
           SliverFillRemaining(
             hasScrollBody: false,
             fillOverscroll: true,
             child: Card(
-              color: AppColor.lightBackground,
+              elevation: 5,
+              shadowColor: AppColor.primaryText,
+              color: AppColor.neutralWhite,
               child: Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 5.h),
