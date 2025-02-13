@@ -52,6 +52,13 @@ class AppStyle {
       color: AppColor.neutralGray1,
       height: 0);
 
+  static TextStyle style14w400NeutralGray2 = TextStyle(
+      fontSize: 14.sp,
+      fontFamily: "PoppinsRegular",
+      fontWeight: FontWeight.w400,
+      color: AppColor.neutralGray2,
+      height: 0);
+
   static TextStyle style16w400PrimaryText = TextStyle(
       fontSize: 16.sp,
       fontFamily: "PoppinsRegular",

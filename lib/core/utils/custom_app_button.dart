@@ -75,7 +75,7 @@ class CustomAppBottom extends StatelessWidget {
                     ),
                   )
                 : Padding(
-                    padding: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+                    padding: EdgeInsets.only(left: 0.0.w, right: 3.0.w),
                     child: Center(
                       child: Text(
                         title,

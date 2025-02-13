@@ -75,7 +75,7 @@ class _UserDetailsState extends State<UserDetails> {
         calorieResult =
             'Your daily calorie needs: ${calories.toStringAsFixed(2)} calories';
       });
-      context.pushNamed(Routes.createOrder);
+      context.pushNamed(Routes.createOrder, arguments: calories.toInt());
     }
   }
 

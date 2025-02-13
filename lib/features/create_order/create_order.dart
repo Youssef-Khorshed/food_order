@@ -2,15 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_order/core/Extension/navigation.dart';
+import 'package:food_order/core/Routes/routes.dart';
 import 'package:food_order/core/utils/custom_app_button.dart';
 import 'package:food_order/core/utils/custom_appbar.dart';
 import 'package:food_order/core/style/styles.dart';
 import 'package:food_order/core/theme/colors.dart';
 import 'package:food_order/features/create_order/create_order_food_item_card.dart';
 import 'package:food_order/features/create_order/food_item_model.dart';
+import 'package:food_order/features/order_summery/order_summery_model.dart';
 
 class CreateOrder extends StatefulWidget {
-  const CreateOrder({super.key});
+  final int totalCalories;
+  const CreateOrder({super.key, required this.totalCalories});
 
   @override
   State<CreateOrder> createState() => _CreateOrderState();
@@ -21,7 +25,8 @@ class _CreateOrderState extends State<CreateOrder> {
   List<FoodItem> vegetavleFoodItems = [];
   List<FoodItem> carbFoodItems = [];
   List<FoodItem> meatFoodItems = [];
-  List<Map<FoodItem, int>> items = [];
+  Map<FoodItem, int> items = {};
+  int totalVegetables = 0, totalMeat = 0, totalCarb = 0;
 
   @override
   void initState() {
@@ -46,7 +51,13 @@ class _CreateOrderState extends State<CreateOrder> {
     setState(() {});
   }
 
-  void _handleSubmit() {}
+  void _handleSubmit() {
+    context.pushNamed(Routes.orderSummery,
+        arguments: OrderSummeryModel(
+            item: items,
+            totalPrice: (totalVegetables + totalMeat + totalCarb),
+            totalcalories: widget.totalCalories));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +81,18 @@ class _CreateOrderState extends State<CreateOrder> {
                 itemBuilder: (context, index) {
                   return CreateOrderFoodItemCard(
                     item: vegetavleFoodItems[index],
+                    onadd: (value) => setState(() {
+                      items[vegetavleFoodItems[index]] = value;
+                      totalVegetables += value;
+                    }),
+                    onremove: (value) => setState(() {
+                      items[vegetavleFoodItems[index]] = value;
+                      totalVegetables -= value;
+
+                      if (totalVegetables < 0) {
+                        totalVegetables = 0;
+                      }
+                    }),
                   );
                 }),
           )),
@@ -87,6 +110,18 @@ class _CreateOrderState extends State<CreateOrder> {
                 itemCount: meatFoodItems.length,
                 itemBuilder: (context, index) {
                   return CreateOrderFoodItemCard(
+                    onadd: (value) => setState(() {
+                      items[meatFoodItems[index]] = value;
+                      totalMeat += value;
+                    }),
+                    onremove: (value) => setState(() {
+                      items[meatFoodItems[index]] = value;
+                      totalMeat -= value;
+
+                      if (totalMeat < 0) {
+                        totalMeat = 0;
+                      }
+                    }),
                     item: meatFoodItems[index],
                   );
                 }),
@@ -106,6 +141,18 @@ class _CreateOrderState extends State<CreateOrder> {
                 itemBuilder: (context, index) {
                   return CreateOrderFoodItemCard(
                     item: carbFoodItems[index],
+                    onadd: (value) => setState(() {
+                      items[carbFoodItems[index]] = value;
+                      totalCarb += value;
+                    }),
+                    onremove: (value) => setState(() {
+                      items[carbFoodItems[index]] = value;
+                      totalCarb -= value;
+
+                      if (totalCarb < 0) {
+                        totalCarb = 0;
+                      }
+                    }),
                   );
                 }),
           )),
@@ -114,30 +161,56 @@ class _CreateOrderState extends State<CreateOrder> {
             fillOverscroll: true,
             child: Card(
               color: AppColor.lightBackground,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Row(
-                    children: [Text('Cal'), Spacer(), Text('data')],
-                  ),
-                  const Row(
-                    children: [Text('Price'), Spacer(), Text('data')],
-                  ),
-                  CustomAppBottom(
-                    title: "Next",
-                    btnWidth: 327.w,
-                    btnheight: 60.h,
-                    txtstyle: isAddItemsValid
-                        ? AppStyle.style16w400NeutralWhite
-                        : AppStyle.style16w500NeutralGray2,
-                    btnColor: isAddItemsValid
-                        ? AppColor.vibrantOrange
-                        : AppColor.softBackground,
-                    withIcon: false,
-                    onTap: isAddItemsValid ? _handleSubmit : null,
-                  ),
-                  SizedBox(height: 24.h),
-                ],
+              child: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 5.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Cal',
+                          style: AppStyle.style16w400PrimaryText,
+                        ),
+                        const Spacer(),
+                        Text(
+                          "${widget.totalCalories} Cal out of 1200 Cal",
+                          style: AppStyle.style14w400NeutralGray2,
+                        ) //
+                      ],
+                    ),
+                    SizedBox(height: 5.h),
+                    Row(
+                      children: [
+                        Text(
+                          'Price',
+                          style: AppStyle.style16w400PrimaryText,
+                        ),
+                        const Spacer(),
+                        Text(
+                          "\$ ${(totalVegetables + totalMeat + totalCarb)}",
+                          style: AppStyle.style16w500VibrantOrange,
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 14.h),
+                    CustomAppBottom(
+                      title: "Next",
+                      btnWidth: 327.w,
+                      btnheight: 60.h,
+                      txtstyle: AppStyle.style16w400NeutralWhite,
+                      btnColor: totalVegetables + totalMeat + totalCarb > 0
+                          ? AppColor.vibrantOrange
+                          : AppColor.softBackground,
+                      withIcon: false,
+                      onTap: totalVegetables + totalMeat + totalCarb > 0
+                          ? _handleSubmit
+                          : null,
+                    ),
+                    SizedBox(height: 24.h),
+                  ],
+                ),
               ),
             ),
           ),

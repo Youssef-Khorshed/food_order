@@ -9,13 +9,13 @@ import 'package:food_order/features/create_order/food_item_model.dart';
 
 class CreateOrderFoodItemCard extends StatefulWidget {
   final FoodItem item;
-  final void Function(int value)? onadd;
-  final void Function(int value)? onremove;
+  final void Function(int value) onadd;
+  final void Function(int value) onremove;
   const CreateOrderFoodItemCard({
     super.key,
     required this.item,
-    this.onadd,
-    this.onremove,
+    required this.onadd,
+    required this.onremove,
   });
 
   @override
@@ -71,8 +71,8 @@ class _CreateOrderFoodItemCardState extends State<CreateOrderFoodItemCard> {
                             onTap: () {
                               setState(() {
                                 if (count > 1) {
+                                  widget.onremove(count);
                                   count--;
-                                  widget.onremove!(count);
                                 }
                               });
                             },
@@ -94,11 +94,11 @@ class _CreateOrderFoodItemCardState extends State<CreateOrderFoodItemCard> {
                           CustomAppBottom(
                             onTap: () {
                               if (count < 50) {
+                                widget.onadd(count);
                                 count++;
-                                widget.onadd!(count);
                               }
                             },
-                            btnWidth: 30.w,
+                            btnWidth: 35.w,
                             btnheight: 30.h,
                             title: "+",
                             txtstyle: AppStyle.style16w400NeutralWhite,
