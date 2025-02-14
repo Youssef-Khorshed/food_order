@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_order/core/style/styles.dart';
 import 'package:food_order/core/theme/colors.dart';
 import 'package:food_order/features/create_order/food_item_model.dart';
+import 'package:shimmer/shimmer.dart';
 
 // ignore: must_be_immutable
 class OrderSummeryItemCard extends StatefulWidget {
@@ -36,11 +38,28 @@ class _OrderSummeryItemCardState extends State<OrderSummeryItemCard> {
           padding: const EdgeInsets.all(10.0),
           child: Row(
             children: [
-              Image.network(
-                widget.item.imageUrl,
+              CachedNetworkImage(
+                imageUrl: widget.item.imageUrl,
                 width: 76.w,
                 height: 62.h,
                 fit: BoxFit.fill,
+                placeholder: (context, url) => Shimmer(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColor.softBackground,
+                      AppColor.neutralWhite,
+                      AppColor.softBackground,
+                    ],
+                  ),
+                  child: Container(
+                    width: 163.w,
+                    height: 108.h,
+                    color: AppColor.softBackground,
+                  ),
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               SizedBox(width: 10.w),
               Column(
